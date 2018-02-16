@@ -72,6 +72,7 @@ extension JSONSchema: Schema {
         }
     }
 
+    // MARK: Schema properties
     var schema: String? {
         return self.associatedSchema.schema
     }
@@ -87,10 +88,15 @@ extension JSONSchema: Schema {
     var type: SchemaTypeName {
         return self.associatedSchema.type
     }
-    // var allOf
-    // var anyOf
-    // var oneOf
-    // var not
+    var allOf: [JSONSchema]? {
+        return self.associatedSchema.allOf
+    }
+    var anyOf: [JSONSchema]? {
+        return self.associatedSchema.anyOf
+    }
+    var oneOf: [JSONSchema]? {
+        return self.associatedSchema.oneOf
+    }
     var definitions: [String: JSONSchema]? {
         return self.associatedSchema.definitions
     }

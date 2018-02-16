@@ -5,10 +5,9 @@ struct NumberSchema: Decodable, Schema {
 
     // Validation keywords for any instance type
     // var enum:
-    // var allOf
-    // var anyOf
-    // var oneOf
-    // var not
+    var allOf: [JSONSchema]?
+    var anyOf: [JSONSchema]?
+    var oneOf: [JSONSchema]?
     var definitions: [String: JSONSchema]?
 
     // Metadata keywords
@@ -28,6 +27,9 @@ struct NumberSchema: Decodable, Schema {
         case id
         case ref = "$ref"
 
+        case allOf
+        case anyOf
+        case oneOf
         case definitions
 
         case title

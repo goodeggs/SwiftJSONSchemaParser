@@ -6,10 +6,10 @@ protocol Schema {
     // Validation keywords for any instance type
     // var enum:
     var type: SchemaTypeName { get }
-    // var allOf
-    // var anyOf
-    // var oneOf
-    // var not
+    var allOf: [JSONSchema]? { get }
+    var anyOf: [JSONSchema]? { get }
+    var oneOf: [JSONSchema]? { get }
+    // var not:
     var definitions: [String: JSONSchema]? { get }
 
     // Metadata keywords

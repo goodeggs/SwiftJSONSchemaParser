@@ -117,6 +117,46 @@ class JSONSchemaParserTests: XCTestCase {
         validateParsing(json: example)
     }
 
+    func testAggregationProperties() throws {
+        let example = """
+        {
+            "type": "object",
+            "allOf": [
+                { "$ref": "#/definitions/positiveNumber" },
+                { "$ref": "#/definitions/positiveEvenNumber" }
+            ],
+            "anyOf": [
+                { "$ref": "#/definitions/positiveNumber" },
+                { "$ref": "#/definitions/positiveEvenNumber" },
+                { "$ref": "#/definitions/negativeNumber" }
+            ],
+            "oneOf": [
+                { "$ref": "#/definitions/positiveNumber" },
+                { "$ref": "#/definitions/negativeNumber" }
+            ],
+            "definitions": {
+                "positiveNumber": {
+                    "type": "number",
+                    "minimum": 0,
+                    "exclusiveMinimum": false
+                },
+                "positiveEvenNumber": {
+                    "type": "number",
+                    "minimum": 2,
+                    "exclusiveMinimum": false,
+                    "multipleOf": 2
+                },
+                "negativeNumber": {
+                    "type": "number",
+                    "maximum": 0,
+                    "exclusiveMaximum": true
+                },
+            }
+        }
+        """
+        validateParsing(json: example)
+    }
+
     func testCoreDefinitionsExamples() throws {
         // example schemas from https://tools.ietf.org/html/draft-zyp-json-schema-04
         let examples = [
