@@ -14,21 +14,68 @@ class JSONSchemaParserTests: XCTestCase {
         }
     }
 
-    func testBooleanSchemas() throws {
+    func testEmptyObjectSchema() throws {
+        let json = "{}"
+        validateParsing(json: json)
+    }
+
+    func testArraySchema() throws {
         let example = """
         {
-            "definitions": {
-                "schema1": true,
-                "schema2": false
+            "type": "array",
+            "items": {
+                "type": "boolean"
             }
         }
         """
         validateParsing(json: example)
     }
 
-    func testEmptyObjectSchema() throws {
-        let json = "{}"
-        validateParsing(json: json)
+    func testBooleanSchema() throws {
+        let example = """
+        {
+            "definitions": {
+                "schema1": true,
+                "schema2": false,
+                "schema3": {
+                    "type": "boolean"
+                }
+            }
+        }
+        """
+        validateParsing(json: example)
+    }
+
+    func testIntegerSchema() throws {
+        let example = """
+        {
+            "type": "integer"
+        }
+        """
+        validateParsing(json: example)
+    }
+
+    func testNullSchema() throws {
+        let example = """
+        {
+            "definitions": {
+                "schema1": null,
+                "schema2": {
+                    "type": "null"
+                }
+            }
+        }
+        """
+        validateParsing(json: example)
+    }
+
+    func testNumberSchema() throws {
+        let example = """
+        {
+            "type": "number"
+        }
+        """
+        validateParsing(json: example)
     }
 
     func testObjectSchema() throws {
@@ -61,7 +108,17 @@ class JSONSchemaParserTests: XCTestCase {
         validateParsing(json: json)
     }
 
+    func testStringSchema() throws {
+        let example = """
+        {
+            "type": "string"
+        }
+        """
+        validateParsing(json: example)
+    }
+
     func testCoreDefinitionsExamples() throws {
+        // example schemas from https://tools.ietf.org/html/draft-zyp-json-schema-04
         let examples = [
             """
             {
